@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://graph.org/file/a97d39a6aa4a1317d430b.jpg" alt="SuperBot Logo">
+  <img src="https://graph.org/file/07038c2e2f6211fc132c0.jpg" alt="SuperBot Logo">
 </p>
 <h1 align="center">
   SuperBot 

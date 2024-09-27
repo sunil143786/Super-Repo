@@ -1,0 +1,439 @@
+import logging
+from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid, ChatAdminRequired
+from info import *
+from imdb import Cinemagoer 
+import asyncio
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram import enums
+from typing import Union
+from Script import script
+import pytz
+import random 
+from asyncio import sleep
+import time
+import re
+import os
+from datetime import datetime, timedelta, date, time
+import string
+from typing import List
+from database.users_chats_db import db
+from bs4 import BeautifulSoup
+import requests
+import aiohttp
+from shortzy import Shortzy
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+BTN_URL_REGEX = re.compile(
+    r"(\[([^\[]+?)\]\((buttonurl|buttonalert):(?:/{0,2})(.+?)(:same)?\))"
+)
+
+imdb = Cinemagoer()
+BANNED = {}
+SMART_OPEN = '“'
+SMART_CLOSE = '”'
+START_CHAR = ('\'', '"', SMART_OPEN)
+
+# temp db for banned 
+class temp(object):
+    BANNED_USERS = []
+    BANNED_CHATS = []
+    ME = None
+    CURRENT=int(os.environ.get("SKIP", 2))
+    CANCEL = False
+    MELCOW = {}
+    U_NAME = None
+    B_NAME = None
+    SETTINGS = {}
+    KEYWORD = {}
+    GETALL = {}
+    SPELL_CHECK = {}
+    IMDB_CAP = {}
+    CHAT = {}
+    
+async def check_expired_premium(client):
+    while 1:
+        data = await db.get_expired(datetime.now())
+        print(data)
+        for user in data:
+            user_id = user["id"]
+            await db.remove_premium_access(user_id)
+            try:
+                user = await client.get_users(user_id)
+                try:
+                    await client.send_message(
+                    chat_id=user_id,
+                    text=f"<b><i>Hᴇʏ Tʜᴇʀᴇ {user.mention} 👋</i>\n\n<u>ʏᴏᴜʀ ᴘʀᴇᴍɪᴜᴍ ᴀᴄᴄᴇss ʜᴀs ᴇxᴘɪʀᴇᴅ ❗\nᴛʜᴀɴᴋ ʏᴏᴜ ꜰᴏʀ ᴜsɪɴɢ ᴏᴜʀ sᴇʀᴠɪᴄᴇ.</u>\n\nɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴛᴀᴋᴇ ᴛʜᴇ ᴘʀᴇᴍɪᴜᴍ ᴀɢᴀɪɴ, ᴛʜᴇɴ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ /plans ꜰᴏʀ ᴛʜᴇ ᴅᴇᴛᴀɪʟs ᴏꜰ ᴛʜᴇ ᴘʟᴀɴs.</b>")
+                except:
+                    pass   
+                await client.send_message(PREMIUM_LOGS, text=f"<b>#PREMIUM_EXPIRED\n\nUsᴇʀ : {user.mention}\nUsᴇʀ Iᴅ : <code>{user_id}</code></b>")
+            except Exception as e:
+                print(e)
+            await sleep(0.5)
+        await sleep(10)
+        
+async def get_seconds(time_string):
+    def extract_value_and_unit(ts):
+        value = ""
+        unit = ""
+
+        index = 0
+        while index < len(ts) and ts[index].isdigit():
+            value += ts[index]
+            index += 1
+
+        unit = ts[index:].lstrip()
+
+        if value:
+            value = int(value)
+
+        return value, unit
+
+    value, unit = extract_value_and_unit(time_string)
+
+    if unit == 's':
+        return value
+    elif unit == 'min':
+        return value * 60
+    elif unit == 'hour':
+        return value * 3600
+    elif unit == 'day':
+        return value * 86400
+    elif unit == 'month':
+        return value * 86400 * 30
+    elif unit == 'year':
+        return value * 86400 * 365
+    else:
+        return 0
+        
+async def is_req_subscribed(bot, query):
+    if await db.find_join_req(query.from_user.id):
+        return True
+    try:
+        user = await bot.get_chat_member(AUTH_CHANNEL, query.from_user.id)
+    except UserNotParticipant:
+        pass
+    except Exception as e:
+        print(e)
+    else:
+        if user.status != enums.ChatMemberStatus.BANNED:
+            return True
+    return False
+
+async def is_subscribed(bot, user_id, channel_id):
+    try:
+        user = await bot.get_chat_member(channel_id, user_id)
+    except UserNotParticipant:
+        pass
+    except Exception as e:
+        pass
+    else:
+        if user.status != enums.ChatMemberStatus.BANNED:
+            return True
+    return False
+
+async def get_poster(query, bulk=False, id=False, file=None):
+    if not id:
+        # https://t.me/GetTGLink/4183
+        query = (query.strip()).lower()
+        title = query
+        year = re.findall(r'[1-2]\d{3}$', query, re.IGNORECASE)
+        if year:
+            year = list_to_str(year[:1])
+            title = (query.replace(year, "")).strip()
+        elif file is not None:
+            year = re.findall(r'[1-2]\d{3}', file, re.IGNORECASE)
+            if year:
+                year = list_to_str(year[:1]) 
+        else:
+            year = None
+        movieid = imdb.search_movie(title.lower(), results=10)
+        if not movieid:
+            return None
+        if year:
+            filtered=list(filter(lambda k: str(k.get('year')) == str(year), movieid))
+            if not filtered:
+                filtered = movieid
+        else:
+            filtered = movieid
+        movieid=list(filter(lambda k: k.get('kind') in ['movie', 'tv series'], filtered))
+        if not movieid:
+            movieid = filtered
+        if bulk:
+            return movieid
+        movieid = movieid[0].movieID
+    else:
+        movieid = query
+    movie = imdb.get_movie(movieid)
+    if movie.get("original air date"):
+        date = movie["original air date"]
+    elif movie.get("year"):
+        date = movie.get("year")
+    else:
+        date = "N/A"
+    plot = ""
+    if not LONG_IMDB_DESCRIPTION:
+        plot = movie.get('plot')
+        if plot and len(plot) > 0:
+            plot = plot[0]
+    else:
+        plot = movie.get('plot outline')
+    if plot and len(plot) > 800:
+        plot = plot[0:800] + "..."
+
+    return {
+        'title': movie.get('title'),
+        'votes': movie.get('votes'),
+        "aka": list_to_str(movie.get("akas")),
+        "seasons": movie.get("number of seasons"),
+        "box_office": movie.get('box office'),
+        'localized_title': movie.get('localized title'),
+        'kind': movie.get("kind"),
+        "imdb_id": f"tt{movie.get('imdbID')}",
+        "cast": list_to_str(movie.get("cast")),
+        "runtime": list_to_str(movie.get("runtimes")),
+        "countries": list_to_str(movie.get("countries")),
+        "certificates": list_to_str(movie.get("certificates")),
+        "languages": list_to_str(movie.get("languages")),
+        "director": list_to_str(movie.get("director")),
+        "writer":list_to_str(movie.get("writer")),
+        "producer":list_to_str(movie.get("producer")),
+        "composer":list_to_str(movie.get("composer")) ,
+        "cinematographer":list_to_str(movie.get("cinematographer")),
+        "music_team": list_to_str(movie.get("music department")),
+        "distributors": list_to_str(movie.get("distributors")),
+        'release_date': date,
+        'year': movie.get('year'),
+        'genres': list_to_str(movie.get("genres")),
+        'poster': movie.get('full-size cover url'),
+        'plot': plot,
+        'rating': str(movie.get("rating")),
+        'url':f'https://www.imdb.com/title/tt{movieid}'
+    }
+# https://github.com/odysseusmax/animated-lamp/blob/2ef4730eb2b5f0596ed6d03e7b05243d93e3415b/bot/utils/broadcast.py#L37
+
+async def broadcast_messages(user_id, message):
+    try:
+        await message.copy(chat_id=user_id)
+        return True, "Success"
+    except FloodWait as e:
+        await asyncio.sleep(e.x)
+        return await broadcast_messages(user_id, message)
+    except InputUserDeactivated:
+        await db.delete_user(int(user_id))
+        logging.info(f"{user_id} - Removed from Database, since deleted account.")
+        return False, "Deleted"
+    except UserIsBlocked:
+        logging.info(f"{user_id} - Blocked the bot.")
+        return False, "Blocked"
+    except PeerIdInvalid:
+        await db.delete_user(int(user_id))
+        logging.info(f"{user_id} - PeerIdInvalid")
+        return False, "Error"
+    except Exception as e:
+        return False, "Error"
+
+async def get_settings(group_id):
+    settings = temp.SETTINGS.get(group_id)
+    if not settings:
+        settings = await db.get_settings(group_id)
+        temp.SETTINGS[group_id] = settings
+    return settings
+    
+async def save_group_settings(group_id, key, value):
+    current = await get_settings(group_id)
+    current[key] = value
+    temp.SETTINGS[group_id] = current
+    await db.update_settings(group_id, current)
+    
+def get_size(size):
+    """Get size in readable format"""
+
+    units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
+    size = float(size)
+    i = 0
+    while size >= 1024.0 and i < len(units):
+        i += 1
+        size /= 1024.0
+    return "%.2f %s" % (size, units[i])
+    
+def list_to_str(k): 
+    if not k:
+        return "N/A"
+    elif len(k) == 1:
+        return str(k[0])
+    else:
+        return ' '.join(f'{elem}, ' for elem in k)
+        
+def get_file_id(msg: Message):
+    if msg.media:
+        for message_type in (
+            "photo",
+            "animation",
+            "audio",
+            "document",
+            "video",
+            "video_note",
+            "voice",
+            "sticker"
+        ):
+            obj = getattr(msg, message_type)
+            if obj:
+                setattr(obj, "message_type", message_type)
+                return obj
+
+def extract_user(message: Message) -> Union[int, str]:
+    """extracts the user from a message"""
+    # https://github.com/SpEcHiDe/PyroGramBot/blob/f30e2cca12002121bad1982f68cd0ff9814ce027/pyrobot/helper_functions/extract_user.py#L7
+    user_id = None
+    user_first_name = None
+    if message.reply_to_message:
+        user_id = message.reply_to_message.from_user.id
+        user_first_name = message.reply_to_message.from_user.first_name
+
+    elif len(message.command) > 1:
+        if (
+            len(message.entities) > 1 and
+            message.entities[1].type == enums.MessageEntityType.TEXT_MENTION
+        ):
+           
+            required_entity = message.entities[1]
+            user_id = required_entity.user.id
+            user_first_name = required_entity.user.first_name
+        else:
+            user_id = message.command[1]
+            # don't want to make a request -_-
+            user_first_name = user_id
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            pass
+    else:
+        user_id = message.from_user.id
+        user_first_name = message.from_user.first_name
+    return (user_id, user_first_name)
+
+
+async def get_tutorial(chat_id):
+    settings = await get_settings(chat_id) #fetching settings for group
+    if 'tutorial' in settings.keys():
+        if settings['is_tutorial']:
+            TUTORIAL_URL = settings['tutorial']
+        else:
+            TUTORIAL_URL = TUTORIAL
+    else:
+        TUTORIAL_URL = TUTORIAL
+    return TUTORIAL_URL
+         
+
+async def stream_site(link):
+    try:
+        stream_url = STREAM_SITE
+        stream_api = STREAM_API
+        
+        https = link.split(":")[0]
+        if "http" == https:
+            link = link.replace("http", "https")
+
+        url = f'https://{stream_url}/api'
+        params = {
+            'api': stream_api,
+            'url': link,
+        }
+
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
+                data = await response.json()
+
+                if data["status"] == "success":
+                    return data['shortenedUrl']
+                else:
+                    logger.error(f"Error: {data['message']}")
+                    return f'https://{stream_url}/api?api={stream_api}&link={link}'
+
+    except Exception as e:
+        logger.error(e)
+        return f'https://{stream_url}/api?api={stream_api}&link={link}'
+
+        
+async def get_shortlink(link, grp_id, is_second_shortener=False, is_third_shortener=False):
+    settings = await get_settings(grp_id) 
+    api_key, site_key = ('verify_api3', 'verify_3') if is_third_shortener else ('verify_api2', 'verify_2') if is_second_shortener else ('verify_api', 'verify')
+   
+    api, site = settings[api_key], settings[site_key]        
+    shortzy = Shortzy(api, site)        
+    try:
+        link = await shortzy.convert(link)
+    except Exception:
+        link = await shortzy.get_quick_link(link)    
+    return link
+
+async def get_users():
+    count  = await user_col.count_documents({})
+    cursor = user_col.find({})
+    list   = await cursor.to_list(length=int(count))
+    return count, list
+
+async def get_text(settings, remaining_seconds, files, query, total_results, search):
+    try:
+        if settings["imdb"]:
+            IMDB_CAP = temp.IMDB_CAP.get(query.from_user.id)
+            CAPTION = f"☠️ ᴛɪᴛʟᴇ : <code>{search}</code>\n📂 ᴛᴏᴛᴀʟ ꜰɪʟᴇꜱ : <code>{total_results}</code>\n📝 ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ : {query.from_user.first_name}\n⏰ ʀᴇsᴜʟᴛ ɪɴ : <code>{remaining_seconds} Sᴇᴄᴏɴᴅs</code>\n\n</b>"
+            if IMDB_CAP:
+                cap = IMDB_CAP
+                for file in files: #shortlink = false, imdb = true
+                    cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>📁 {get_size(file.file_size)} ▷ {file.file_name}</a></b>"
+            else:
+                imdb = await get_poster(search, file=(files[0]).file_name) if settings["imdb"] else None
+                if imdb:
+                    TEMPLATE = script.IMDB_TEMPLATE_TXT
+                    cap = TEMPLATE.format(
+                        qurey=search,
+                        title=imdb['title'],
+                        votes=imdb['votes'],
+                        aka=imdb["aka"],
+                        seasons=imdb["seasons"],
+                        box_office=imdb['box_office'],
+                        localized_title=imdb['localized_title'],
+                        kind=imdb['kind'],
+                        imdb_id=imdb["imdb_id"],
+                        cast=imdb["cast"],
+                        runtime=imdb["runtime"],
+                        countries=imdb["countries"],
+                        certificates=imdb["certificates"],
+                        languages=imdb["languages"],
+                        director=imdb["director"],
+                        writer=imdb["writer"],
+                        producer=imdb["producer"],
+                        composer=imdb["composer"],
+                        cinematographer=imdb["cinematographer"],
+                        music_team=imdb["music_team"],
+                        distributors=imdb["distributors"],
+                        release_date=imdb['release_date'],
+                        year=imdb['year'],
+                        genres=imdb['genres'],
+                        poster=imdb['poster'],
+                        plot=imdb['plot'],
+                        rating=imdb['rating'],
+                        url=imdb['url'],
+                        **locals()
+                    )
+                    for file in files:
+                        cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>📁 {get_size(file.file_size)} ▷ {file.file_name}</a></b>"
+                else:
+                    cap = f"{CAPTION}" #imdb = false
+                    cap+="<b>📚 <u>Your Requested Files</u> 👇\n\n</b>"
+                    for file in files:
+                        cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>📁 {get_size(file.file_size)} ▷ {file.file_name}\n\n</a></b>"
+    
+        else:
+            #imdb = false
+            cap = f"☠️ ᴛɪᴛʟᴇ : <code>{search}</code>\n📂 ᴛᴏᴛᴀʟ ꜰɪʟᴇꜱ : <code>{total_results}</code>\n📝 ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ : {query.from_user.first_name}\n⏰ ʀᴇsᴜʟᴛ ɪɴ : <code>{remaining_seconds}\n\n</b>"
+            cap+="<b>📚 <u>Your Requested Files</u> 👇\n\n</b>"
+            for file in files:
+                cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>📁 {get_size(file.file_size)} ▷ {file.file_name}\n\n</a></b>"
+        return cap
+    except Exception as e:
+        await query.answer(f"{e}", show_alert=True)
+        return

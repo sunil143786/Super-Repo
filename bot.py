@@ -36,7 +36,6 @@ from SAFARI.template import web_server
 from SAFARI.utils import SafariBot
 from SAFARI.utils.keepalive import ping_server
 from SAFARI.utils.clients import initialize_clients
-from plugins.Dev_Feature.Redeem import safari_jobs
 
 ppath = "plugins/*.py"
 files = glob.glob(ppath)

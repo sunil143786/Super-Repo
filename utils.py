@@ -460,4 +460,4 @@ async def get_text(settings, remaining_seconds, files, query, total_results, sea
         return cap
     except Exception as e:
         await query.answer(f"{e}", show_alert=True)
-        return
+        return cap

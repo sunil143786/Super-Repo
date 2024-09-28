@@ -54,7 +54,9 @@ async def start(client, message):
                 photo=(PICS),
                 caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
                 reply_markup=reply_markup,
-                parse_mode=enums.ParseMode.HTML
+                has_spoiler=True,
+                parse_mode=enums.
+ParseMode.HTML
             )
             await asyncio.sleep(2) # 😢 https://github.com/EvamariaTG/EvaMaria/blob/master/plugins/p_ttishow.py#L17 😬 wait a bit, before checking.
             if not await db.get_chat(message.chat.id):
@@ -88,7 +90,9 @@ async def start(client, message):
                 photo=random.choice(PICS),
                 caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
                 reply_markup=reply_markup,
-                parse_mode=enums.ParseMode.HTML
+                has_spoiler=True,
+                parse_mode=enums.
+ParseMode.HTML
             )
             return
         if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:

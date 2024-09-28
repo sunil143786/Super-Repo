@@ -1359,7 +1359,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
-            InputMediaPhoto(random.choice(PICS))
+            InputMediaPhoto(random.choice(PICS), has_spoiler=True)
         )
         await query.message.edit_text(
             text=script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME),
@@ -1560,7 +1560,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.message.edit_text(
             text=script.USERS_TXT.format(query.from_user.mention),
             reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
+            has_spoiler=True,
+            parse_mode=enums.
+ParseMode.HTML
         )
 
     elif query.data == "group":
@@ -1571,7 +1573,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.message.edit_text(
             text=script.GROUP_TXT.format(query.from_user.mention),
             reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
+            has_spoiler=True,
+            parse_mode=enums.
+ParseMode.HTML
         )
 
     elif query.data == "admic":
@@ -1584,7 +1588,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.message.edit_text(
             text=script.ADMIC_TXT.format(query.from_user.mention),
             reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
+            has_spoiler=True,
+            parse_mode=enums.
+ParseMode.HTML
         )
     
 
@@ -1625,7 +1631,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.message.edit_text(
             text=script.ABOUT_TXT.format(temp.U_NAME, temp.B_NAME),
             reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
+            has_spoiler=True,
+            parse_mode=enums.
+ParseMode.HTML
         )
 
     
@@ -1686,7 +1694,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.message.edit_text(
             text=script.STATUS_TXT.format(total, users, chats, monsize, free),
             reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
+            has_spoiler=True,
+            parse_mode=enums.
+ParseMode.HTML
         )
     
 

@@ -265,7 +265,7 @@ async def start(client, message):
             settings = await get_settings(int(grp_id)) 
             user_verified = await db.is_user_verified(user_id)
             is_second_shortener = await db.use_second_shortener(user_id, settings.get('verify_time', TWO_VERIFY_GAP))
-            is_third_shortener = await db.use_third_shortener(user_id, settings.get('third_verified', THIRD_VERIFY_GAP))        
+            is_third_shortener = await db.use_third_shortener(user_id, settings.get('verify_time2', THIRD_VERIFY_GAP))        
             
             if (not user_verified or is_second_shortener or is_third_shortener) and settings.get("is_verify", IS_VERIFY):
                 verify_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=7))

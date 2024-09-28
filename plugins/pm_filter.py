@@ -1692,9 +1692,8 @@ ParseMode.HTML
         await query.message.edit_text(
             text=script.STATUS_TXT.format(total, users, chats, monsize, free),
             reply_markup=reply_markup,
-            has_spoiler=True,
-            parse_mode=enums.
-ParseMode.HTML
+            
+            parse_mode=enums.ParseMode.HTML
         )
     
 

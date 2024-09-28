@@ -125,34 +125,32 @@ async def reply_stream(client, message):
                 ]]),
                 disable_web_page_preview=True
         )
+
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(bot, message):
-    try:
+    user_id = message.from_user.id
+    user = await db.get_userr(user_id)
+    last_reset = user.get("last_reset")
+    kolkata = pytz.timezone(TIMEZONE)
+    current_datetime = datetime.now(kolkata)
+    next_day = current_datetime + timedelta(days=1)
+    next_midnight = datetime(next_day.year, next_day.month, next_day.day, tzinfo=kolkata)
+    time_difference = next_midnight - current_datetime
+    hours, remainder = divmod(time_difference.seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    today = current_datetime.strftime("%Y-%m-%d")
+    if last_reset != today:
+        await db.reset_all_files_count()
+        await db.reset_allsend_files()
+    if message.text.startswith("/") or message.text.startswith("#"): return
+    if PM_FILTER or await db.has_premium_access(message.from_user.id):
+        await auto_filter(bot, message)
+    else:
+        user = message.from_user.first_name
         user_id = message.from_user.id
-        user = await db.get_userr(user_id)
-        last_reset = user.get("last_reset")
-        kolkata = pytz.timezone(TIMEZONE)
-        current_datetime = datetime.now(kolkata)
-        next_day = current_datetime + timedelta(days=1)
-        next_midnight = datetime(next_day.year, next_day.month, next_day.day, tzinfo=kolkata)
-        time_difference = next_midnight - current_datetime
-        hours, remainder = divmod(time_difference.seconds, 3600)
-        minutes, seconds = divmod(remainder, 60)
-        today = current_datetime.strftime("%Y-%m-%d")
-        if last_reset != today:
-            await db.reset_all_files_count()
-            await db.reset_allsend_files()
-        if message.text.startswith("/") or message.text.startswith("#"): return
-        if PM_FILTER or await db.has_premium_access(message.from_user.id):
-            await auto_filter(bot, message)
-        else:
-            user = message.from_user.first_name
-            user_id = message.from_user.id
-            await message.reply_text("<b>ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴛᴀᴋᴇ ᴀ ᴍᴏᴠɪᴇ ғʀᴏᴍ ᴛʜᴇ ʙᴏᴛ ᴛʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ʜᴀᴠᴇ ᴛᴏ ᴘᴀʏ ᴛʜᴇ ᴘʀᴇᴍɪᴜᴍ ғᴏʀ ᴛʜᴇ ʙᴏᴛ, ᴏᴛʜᴇʀᴡɪsᴇ ʏᴏᴜ ᴄᴀɴ ᴛᴀᴋᴇ ᴛʜᴇ ᴍᴏᴠɪᴇ ғʀᴏᴍ ᴛʜᴇ ɢʀᴏᴜᴘ\n\nयदि आप बॉट से मूवी लेना चाहते हैं तो आपको बॉट का प्रीमियम लेना होगा\n\n 💸20 Rs Monthly ⏱️\n\nअन्यथा आप ग्रुप से मूवी ले सकते हैं.\n@apnamovie4</b>", reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("Gʀᴏᴜᴘ Hᴇʀᴇ", url=GRP_LNK)],
-                [InlineKeyboardButton('✨Bʏ Pʀᴇᴍɪᴜᴍ: Sᴇᴀʀᴄʜ Pᴍ 🔍 🚫✨', callback_data=f'premium_info')]]))
-    except Exception as e:
-        await message.reply(e)
+        await message.reply_text("<b>ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴛᴀᴋᴇ ᴀ ᴍᴏᴠɪᴇ ғʀᴏᴍ ᴛʜᴇ ʙᴏᴛ ᴛʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ʜᴀᴠᴇ ᴛᴏ ᴘᴀʏ ᴛʜᴇ ᴘʀᴇᴍɪᴜᴍ ғᴏʀ ᴛʜᴇ ʙᴏᴛ, ᴏᴛʜᴇʀᴡɪsᴇ ʏᴏᴜ ᴄᴀɴ ᴛᴀᴋᴇ ᴛʜᴇ ᴍᴏᴠɪᴇ ғʀᴏᴍ ᴛʜᴇ ɢʀᴏᴜᴘ\n\nयदि आप बॉट से मूवी लेना चाहते हैं तो आपको बॉट का प्रीमियम लेना होगा\n\n 💸20 Rs Monthly ⏱️\n\nअन्यथा आप ग्रुप से मूवी ले सकते हैं.\n@apnamovie4</b>", reply_markup=InlineKeyboardMarkup([
+            [InlineKeyboardButton("Gʀᴏᴜᴘ Hᴇʀᴇ", url=GRP_LNK)],
+            [InlineKeyboardButton('✨Bʏ Pʀᴇᴍɪᴜᴍ: Sᴇᴀʀᴄʜ Pᴍ 🔍 🚫✨', callback_data=f'premium_info')]]))
 
 
 

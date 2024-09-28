@@ -40,6 +40,7 @@ async def start(client, message):
         time_difference = next_day_midnight - current_datetime
         hours, remainder = divmod(time_difference.seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
+
     try:
         await react_msg(client, message)
     except:

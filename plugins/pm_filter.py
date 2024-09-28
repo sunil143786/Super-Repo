@@ -49,9 +49,9 @@ async def stream_download(bot, query):
         
     online = f"{URL}watch/{str(msg.id)}/{quote_plus(get_name(msg))}?hash={get_hash(msg)}"
     download = f"{URL}{str(msg.id)}/{quote_plus(get_name(msg))}?hash={get_hash(msg)}"
-    non_online = await stream_site(online)
-    non_download = await stream_site(download)
-    if not await db.has_premium_access(user_id) and settings.get('stream_mode'):
+    non_online = await stream_site(online, grp_id)
+    non_download = await stream_site(download, grp_id)
+    if not await db.has_premium_access(user_id) and settings.get('stream_mode', STREAM_MODE):
         await msg.reply_text(text=f"tg://openmessage?user_id={user_id}\n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username} STREAM MODE ON",
             reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton("📥 ᴅᴏᴡɴʟᴏᴀᴅ 📥", url=non_download),

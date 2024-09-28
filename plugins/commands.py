@@ -40,12 +40,10 @@ async def start(client, message):
         time_difference = next_day_midnight - current_datetime
         hours, remainder = divmod(time_difference.seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
-        
     try:
         await react_msg(client, message)
     except:
         pass
-
         if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
             buttons = [[
                         InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
@@ -128,7 +126,9 @@ ParseMode.HTML
                 photo=random.choice(PICS),
                 caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
                 reply_markup=reply_markup,
-                parse_mode=enums.ParseMode.HTML
+                has_spoiler=True,
+                parse_mode=enums.
+ParseMode.HTML
             )
             return
         if len(message.command) == 2 and message.command[1] in ["safaridev"]:

@@ -18,7 +18,7 @@ def is_enabled(value, default):
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', "26461352"))
 API_HASH = environ.get('API_HASH', "ab9cc32776ada8335852b50cd96bb8c6")
-BOT_TOKEN = environ.get('BOT_TOKEN', "5928202945:AAFec6pM6ucmWDfiNUsPp0Xw25kko")
+BOT_TOKEN = environ.get('BOT_TOKEN', "7121730083:AAFCD53TaIZywWw2UeuN-9ElC7zUqIbm_II")
 TIMEZONE = environ.get("TIMEZONE", "Asia/Kolkata")
 
 # Bot settings
@@ -43,8 +43,8 @@ SEND_ALL_LIMITE = int(environ.get('SEND_ALL_LIMITE', 3))
 FILES_LIMITE_MODE = is_enabled((environ.get('FILES_LIMITE_MODE', 'True')), False)
 
 # Admins, Channels & Users
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '5069888600').split()]
-OWNER_USER_NAME = environ.get("OWNER_USER_NAME", "safaridev") # widout 👉 @
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '5069888600 6445840990').split()]
+OWNER_USER_NAME = environ.get("OWNER_USER_NAME", "Jaynath_Request_Group_bot") # widout 👉 @
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002055127272').split()]
 # post channel auto post new movie
 POST_CHANNELS = list(map(int, (channel.strip() for channel in environ.get('POST_CHANNELS', '-1001883539506').split(','))))
@@ -53,7 +53,7 @@ AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '-1001883539506'))
 NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", 'True')), False)
 
 # MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://0.maanrtv.mongodb.net/?retryWrites=true&w=majority")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://Bisalrepo:Bisalrepo@cluster0.tp6ng.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
@@ -61,11 +61,11 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 STREAM_SITE = (environ.get('STREAM_SITE', 'sharedisklinks.com'))
 STREAM_API = (environ.get('STREAM_API', '587f94f0e0b1813a52aed61290af6ea79d6ee464'))
 STREAM_HTO = (environ.get('STREAMHTO', 'https://t.me/Hoe/69'))
-STREAM_MODE = is_enabled((environ.get('STREAM_MODE', "True")), False)
+STREAM_MODE = is_enabled((environ.get('STREAM_MODE', "False")), False)
 
 
 #verify site api and url
-IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), False)
+IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
 VERIFY_IMG = environ.get("VERIFY_IMG", "https://graph.org/file/1669ab9af68eaa62c3ca4.jpg")
 VERIFY_URL = environ.get('VERIFY_URL', 'sharedisklinks.com')
 VERIFY_API = (environ.get('VERIFY_API', '587f94f0e0b1813a52aed61290af6ea79d6ee464'))
@@ -97,7 +97,7 @@ SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'Jaynath_Request_Group')
 IMDB = is_enabled((environ.get('IMDB', "True")), True)
 AUTO_FFILTER = is_enabled((environ.get('AUTO_FFILTER', "True")), True)
 AUTO_DELETE = is_enabled((environ.get('AUTO_DELETE', "True")), True)
-PM_FILTER = is_enabled((environ.get('PM_FILTER', "False")), False)
+PM_FILTER = is_enabled((environ.get('PM_FILTER', "True")), False)
 
 SINGLE_BUTTON = is_enabled((environ.get('SINGLE_BUTTON', "True")), True)
 CUSTOM_FILE_CAPTION = environ.get("CUSTOM_FILE_CAPTION", f"{script.CAPTION}")

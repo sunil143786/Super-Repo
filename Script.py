@@ -283,8 +283,7 @@ Money heist S0E01
 • /set_log - sᴇᴛ ʟᴏɢ_ᴄʜᴀɴɴᴇʟ
 • /set_file_limit - sᴇᴛ ᴅᴀɪʟʏ ғɪʟᴇ ʟɪᴍɪᴛ
 • /set_send_limit - sᴇᴛ sᴇᴅɴᴅ ᴀʟʟ ʙᴜᴛᴛᴏɴ ʟɪᴍɪᴛ ғᴏʀ 1ᴅᴀʏ
-• /set_template - ᴄʜᴀɴɢᴇ ɪᴍᴇʙ ᴀᴜᴛᴏ ғɪʟᴛᴇʀ  ʀᴇsᴜʟᴛ ᴘᴀɢᴇ 
-• /del_template - ᴅᴇʟᴇᴛᴇ sᴀᴠᴇᴅ ɪᴍᴅʙ ʀᴇsᴜʟᴛ ᴘᴀɢᴇ 
+• /set_template - ᴄʜᴀɴɢᴇ ɪᴍᴇʙ ᴀᴜᴛᴏ ғɪʟᴛᴇʀ  ʀᴇsᴜʟᴛ ᴘᴀɢᴇ  
 • /set_stream - ᴄʜᴀɴɢᴇ sᴛʀᴇᴀᴍ sʜᴏʀᴛ ʟɪɴᴋ
 • /connections - ʟɪꜱᴛ ᴀʟʟ ʏᴏᴜʀ ᴄᴏɴɴᴇᴄᴛɪᴏɴꜱ.
 • /settings - ᴄʜᴀɴɢᴇ sᴇᴛᴛɪɴɢs ᴀs ʏᴏᴜʀ ᴡɪsʜ.

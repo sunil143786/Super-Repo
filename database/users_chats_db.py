@@ -1,7 +1,7 @@
 # https://github.com/odysseusmax/animated-lamp/blob/master/bot/database/database.py
 import motor.motor_asyncio
 from info import DATABASE_NAME, DATABASE_URI, IMDB, IMDB_TEMPLATE, MELCOW_NEW_USERS, SINGLE_BUTTON, SPELL_CHECK_REPLY, AUTO_DELETE, MAX_BTN, AUTO_FFILTER, TUTORIAL, TUTORIAL2, TUTORIAL3, REFERAL_TIME, STREAM_API, STREAM_SITE, VERIFY_URL, VERIFY_API, \
-VERIFY_URL2, VERIFY_API2, VERIFY_URL3, VERIFY_API3, FILES_LIMITE_MODE, TWO_VERIFY_GAP, THIRD_VERIFY_GAP, STREAM_MODE, LOG_CHANNEL, IS_VERIFY, AUTH_CHANNEL, CUSTOM_FILE_CAPTION, FILE_LIMITE, SEND_ALL_LIMITE
+VERIFY_URL2, VERIFY_API2, VERIFY_URL3, VERIFY_API3, FILES_LIMITE_MODE, TWO_VERIFY_GAP, THIRD_VERIFY_GAP, STREAM_MODE, LOG_CHANNEL, IS_VERIFY, AUTH_CHANNEL, CUSTOM_FILE_CAPTION, FILE_LIMITE, SEND_ALL_LIMITE, STREAM_SITE, STREAM_API
 from datetime import datetime, timedelta
 import pytz
 import re
@@ -321,6 +321,8 @@ class Database:
             'file_limit': FILE_LIMITE, 
             'all_limit': SEND_ALL_LIMITE, 
             'stream_mode': STREAM_MODE,
+            'streamapi': STREAM_API, 
+            'streamsite': STREAM_SITE,
             'caption': CUSTOM_FILE_CAPTION
         }
         chat = await self.grp.find_one({'id':int(id)})

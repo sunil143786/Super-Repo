@@ -59,8 +59,7 @@ async def start(client, message):
                 caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
                 reply_markup=reply_markup,
                 has_spoiler=True,
-                parse_mode=enums.
-ParseMode.HTML
+                parse_mode=enums.ParseMode.HTML
             )
             await asyncio.sleep(2) # 😢 https://github.com/EvamariaTG/EvaMaria/blob/master/plugins/p_ttishow.py#L17 😬 wait a bit, before checking.
             if not await db.get_chat(message.chat.id):
@@ -81,11 +80,11 @@ ParseMode.HTML
                         InlineKeyboardButton('☠️ʙᴏᴛ ᴄᴍᴅ ☠️', callback_data='help'),
                         InlineKeyboardButton('🤖 ᴀʙᴏᴜᴛ 🤖', callback_data='about')
                     ]]
-            if IS_VERIFY is True:
-                buttons.append([
-                    InlineKeyboardButton('📣 ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ 👑', callback_data='pm_reff'), 
-                    InlineKeyboardButton('✨ ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ✨', callback_data='premium_info')
-                ]) 
+            #if IS_VERIFY is True:
+                #buttons.append([
+                    #InlineKeyboardButton('📣 ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ 👑', callback_data='pm_reff'), 
+                    #InlineKeyboardButton('✨ ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ✨', callback_data='premium_info')
+                #]) 
             reply_markup = InlineKeyboardMarkup(buttons)
             m=await message.reply_sticker("CAACAgQAAxkBAAEKeqNlIpmeUoOEsEWOWEiPxPi3hH5q-QACbg8AAuHqsVDaMQeY6CcRojAE") 
             await asyncio.sleep(2)
@@ -95,8 +94,7 @@ ParseMode.HTML
                 caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
                 reply_markup=reply_markup,
                 has_spoiler=True,
-                parse_mode=enums.
-ParseMode.HTML
+                parse_mode=enums.ParseMode.HTML
             )
             return
         if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
@@ -113,11 +111,11 @@ ParseMode.HTML
                     ],[
                         InlineKeyboardButton('✨ ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ✨', callback_data="premium_pm")
                     ]]
-            if IS_VERIFY is True:
-                buttons.append([
-                    InlineKeyboardButton('📣 ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ 👑', callback_data='pm_reff'), 
-                    InlineKeyboardButton('✨ ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ✨', callback_data='premium_info')
-                ]) 
+            #if IS_VERIFY is True:
+                #buttons.append([
+                   # InlineKeyboardButton('📣 ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ 👑', callback_data='pm_reff'), 
+                    #InlineKeyboardButton('✨ ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ✨', callback_data='premium_info')
+                #]) 
             reply_markup = InlineKeyboardMarkup(buttons)
             m=await message.reply_sticker("CAACAgQAAxkBAAEKeqNlIpmeUoOEsEWOWEiPxPi3hH5q-QACbg8AAuHqsVDaMQeY6CcRojAE") 
             await asyncio.sleep(2)
@@ -127,8 +125,7 @@ ParseMode.HTML
                 caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
                 reply_markup=reply_markup,
                 has_spoiler=True,
-                parse_mode=enums.
-ParseMode.HTML
+                parse_mode=enums.ParseMode.HTML
             )
             return
         if len(message.command) == 2 and message.command[1] in ["safaridev"]:
@@ -343,8 +340,8 @@ ParseMode.HTML
                     InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}#{grp_id}")
                     ]]
                 reply_markup=InlineKeyboardMarkup(button)
-                if not await db.has_premium_access(message.from_user.id):
-                    button.append([InlineKeyboardButton('✨ Sᴇᴀʀᴄʜ Iɴ Bᴏᴛ ✨', callback_data=f'premium_info')])
+                #if not await db.has_premium_access(message.from_user.id):
+                    #button.append([InlineKeyboardButton('✨ Sᴇᴀʀᴄʜ Iɴ Bᴏᴛ ✨', callback_data=f'premium_info')])
                 msg = await client.send_cached_media(
                     chat_id=message.from_user.id,
                     file_id=file_id,
@@ -374,8 +371,8 @@ ParseMode.HTML
                     InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}#{grp_id}")
                     ]]
                 reply_markup=InlineKeyboardMarkup(button)
-                if not await db.has_premium_access(message.from_user.id):
-                    button.append([InlineKeyboardButton('✨ Sᴇᴀʀᴄʜ Iɴ Bᴏᴛ ✨', callback_data=f'premium_info')])
+                #if not await db.has_premium_access(message.from_user.id):
+                    #button.append([InlineKeyboardButton('✨ Sᴇᴀʀᴄʜ Iɴ Bᴏᴛ ✨', callback_data=f'premium_info')])
                 msg = await client.send_cached_media(
                     chat_id=message.from_user.id,
                     file_id=file_id,
@@ -423,8 +420,8 @@ ParseMode.HTML
             InlineKeyboardButton("🖥️ ᴡᴀᴛᴄʜ / ᴅᴏᴡɴʟᴏᴀᴅ 📥", callback_data=f"streaming#{file_id}#{grp_id}")
             ]]
         reply_markup=InlineKeyboardMarkup(button)
-        if not await db.has_premium_access(message.from_user.id):
-            button.append([InlineKeyboardButton('✨ Sᴇᴀʀᴄʜ Iɴ Bᴏᴛ ✨', callback_data=f'premium_info')])
+        #if not await db.has_premium_access(message.from_user.id):
+            #button.append([InlineKeyboardButton('✨ Sᴇᴀʀᴄʜ Iɴ Bᴏᴛ ✨', callback_data=f'premium_info')])
         msg=await client.send_cached_media(
             chat_id=message.from_user.id,
             file_id=file_id,

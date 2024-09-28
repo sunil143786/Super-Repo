@@ -15,7 +15,7 @@ shortzy
 
 PyLeaves==1.0.2
 cinemagoer
-shortzy
+shortzy==0.0.8
 aiofiles
 pyromod==1.5
 

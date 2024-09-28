@@ -315,35 +315,20 @@ def extract_user(message: Message) -> Union[int, str]:
     return (user_id, user_first_name)
          
 
-async def stream_site(link):
+async def stream_site(link, grp_id):
     try:
-        stream_url = STREAM_SITE
-        stream_api = STREAM_API
-        
-        https = link.split(":")[0]
-        if "http" == https:
-            link = link.replace("http", "https")
-
-        url = f'https://{stream_url}/api'
-        params = {
-            'api': stream_api,
-            'url': link,
-        }
-
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, params=params, raise_for_status=True, ssl=False) as response:
-                data = await response.json()
-
-                if data["status"] == "success":
-                    return data['shortenedUrl']
-                else:
-                    logger.error(f"Error: {data['message']}")
-                    return f'https://{stream_url}/api?api={stream_api}&link={link}'
-
+        settings = await get_settings(grp_id) 
+        api_key, site_key = ('streamapi', 'streamsite')
+       
+        api, site = settings[api_key], settings[site_key]        
+        shortzy = Shortzy(api, site)        
+        try:
+            link = await shortzy.convert(link)
+        except Exception:
+            link = await shortzy.get_quick_link(link)    
+        return link
     except Exception as e:
         logger.error(e)
-        return f'https://{stream_url}/api?api={stream_api}&link={link}'
-
         
 async def get_shortlink(link, grp_id, is_second_shortener=False, is_third_shortener=False):
     settings = await get_settings(grp_id) 

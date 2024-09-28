@@ -128,6 +128,7 @@ async def reply_stream(client, message):
 
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(bot, message):
+    await message.react(emoji=random.choice(REACTION), big=True)
     user_id = message.from_user.id
     user = await db.get_userr(user_id)
     last_reset = user.get("last_reset")
@@ -156,6 +157,7 @@ async def pm_text(bot, message):
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(bot, message):
+    await message.react(emoji=random.choice(REACTION), big=True)
     user_id = message.from_user.id
     user = await db.get_userr(user_id)
     last_reset = user.get("last_reset")
@@ -1162,6 +1164,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await save_group_settings(grp_id, 'fsub_id', AUTH_CHANNEL)
         await save_group_settings(grp_id, 'log', LOG_CHANNEL)
         await save_group_settings(grp_id, 'file_limit', FILE_LIMITE)
+        await save_group_settings(grp_id, 'streamapi', STREAM_API)
+        await save_group_settings(grp_id, 'streamsite', STREAM_SITE)
         await save_group_settings(grp_id, 'all_limit', SEND_ALL_LIMITE)
 
         await query.answer('ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ ʀᴇꜱᴇᴛ...')
@@ -1348,11 +1352,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton('☠️ʙᴏᴛ ᴄᴍᴅ ☠️', callback_data='help'),
                     InlineKeyboardButton('🤖 ᴀʙᴏᴜᴛ 🤖', callback_data='about')
                  ]]
-        if IS_VERIFY is True:
-            buttons.append([
-                InlineKeyboardButton('📣 ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ 👑', callback_data="pm_reff"), 
-                InlineKeyboardButton('✨ ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ✨', callback_data="premium_info")
-            ])
+        #if IS_VERIFY is True:
+            #buttons.append([
+               # InlineKeyboardButton('📣 ғʀᴇᴇ ᴘʀᴇᴍɪᴜᴍ 👑', callback_data="pm_reff"), 
+               # InlineKeyboardButton('✨ ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ ✨', callback_data="premium_info")
+          #  ])
         reply_markup = InlineKeyboardMarkup(buttons)
         await client.edit_message_media(
             query.message.chat.id, 
@@ -1557,10 +1561,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.USERS_TXT.format(query.from_user.mention),
-            reply_markup=reply_markup,
-            has_spoiler=True,
-            parse_mode=enums.
-ParseMode.HTML
+            reply_markup=reply_markup, 
+            parse_mode=enums.ParseMode.HTML
         )
 
     elif query.data == "group":
@@ -1571,9 +1573,7 @@ ParseMode.HTML
         await query.message.edit_text(
             text=script.GROUP_TXT.format(query.from_user.mention),
             reply_markup=reply_markup,
-            has_spoiler=True,
-            parse_mode=enums.
-ParseMode.HTML
+            parse_mode=enums.ParseMode.HTML
         )
 
     elif query.data == "admic":
@@ -1586,9 +1586,7 @@ ParseMode.HTML
         await query.message.edit_text(
             text=script.ADMIC_TXT.format(query.from_user.mention),
             reply_markup=reply_markup,
-            has_spoiler=True,
-            parse_mode=enums.
-ParseMode.HTML
+            parse_mode=enums.ParseMode.HTML
         )
     
 
@@ -1629,9 +1627,7 @@ ParseMode.HTML
         await query.message.edit_text(
             text=script.ABOUT_TXT.format(temp.U_NAME, temp.B_NAME),
             reply_markup=reply_markup,
-            has_spoiler=True,
-            parse_mode=enums.
-ParseMode.HTML
+            parse_mode=enums.ParseMode.HTML
         )
 
     

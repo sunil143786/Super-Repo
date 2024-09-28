@@ -819,7 +819,42 @@ async def set_verify3(c, m):
         await save_group_settings(grp_id, 'verify_3', VERIFY_URL3)
         await save_group_settings(grp_id, 'verify_api3', VERIFY_API3)
         await sts.edit(f"<b><u>❌ ᴇʀʀᴏʀ ᴏᴄᴄᴏᴜʀᴇᴅ ❌</u>\n\nᴀᴜᴛᴏ ᴀᴅᴅᴇᴅ ᴅᴇꜰᴜʟᴛ sʜᴏʀᴛɴᴇʀ\n\nɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴄʜᴀɴɢᴇ ᴛʜᴇɴ ᴜsᴇ ᴄᴏʀʀᴇᴄᴛ ꜰᴏʀᴍᴀᴛ ᴏʀ ᴀᴅᴅ ᴠᴀʟɪᴅ sʜᴏʀᴛʟɪɴᴋ ᴅᴏᴍᴀɪɴ ɴᴀᴍᴇ & ᴀᴘɪ\n\nʏᴏᴜ ᴄᴀɴ ᴀʟsᴏ ᴄᴏɴᴛᴀᴄᴛ ᴏᴜʀ <a href=https://t.me/safarisuport>sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ</a> ꜰᴏʀ sᴏʟᴠᴇ ᴛʜɪs ɪssᴜᴇ...\n\nʟɪᴋᴇ -\n\n`/set_verify3 sharedisklinks.com 587f94f0e0b1813a52aed61290af6ea79d6ee464`\n\n💔 ᴇʀʀᴏʀ - <code>{e}</code></b>")
-        
+
+@Client.on_message(filters.command('set_stream'))
+async def set_stream(c, m):
+    grp_id = m.chat.id
+    title = m.chat.title
+    user = await c.get_chat_member(m.chat.id, m.from_user.id)
+    owner=user.status in [enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.OWNER] or str(message.from_user.id) in ADMINS
+    if not owner:
+        return await m.reply_text('<b>ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴅᴍɪɴ ɪɴ ᴛʜɪꜱ ɢʀᴏᴜᴘ</b>')
+    if len(m.text.split()) == 1:
+        await m.reply("<b>Use this command like this - \n\n`/set_stream tnshort.net 06b24eb6bbb025713cd522fb3f696b6d5de11354`</b>")
+        return
+    sts = await m.reply("<b>♻️ ᴄʜᴇᴄᴋɪɴɢ...</b>")
+    chat_type = m.chat.type
+    if chat_type not in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
+        return await m.reply_text("<b>ᴜꜱᴇ ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ɪɴ ɢʀᴏᴜᴘ...</b>")
+    try:
+        URL = m.command[1]
+        API = m.command[2]
+        resp = requests.get(f'https://{URL}/api?api={API}&url=https://telegram.dog/SafariBotts').json()
+        if resp['status'] == 'success':
+            SHORT_LINK = resp['shortenedUrl']
+        await save_group_settings(grp_id, 'streamsite', URL)
+        await save_group_settings(grp_id, 'streamapi', API)
+        await sts.edit(f"<b><u>✅ sᴜᴄᴄᴇssꜰᴜʟʟʏ ʏᴏᴜʀ sʜᴏʀᴛɴᴇʀ ɪs ᴀᴅᴅᴇᴅ</u>\n\nᴅᴇᴍᴏ - {SHORT_LINK}\n\nsɪᴛᴇ - `{URL}`\n\nᴀᴘɪ - `{API}`</b>")
+        user_id = m.from_user.id
+        user_info = f"@{m.from_user.username}" if m.from_user.username else f"{m.from_user.mention}"
+        link = (await c.get_chat(m.chat.id)).invite_link
+        grp_link = f"[{m.chat.title}]({link})"
+        log_message = f"#New_Stream_link_set\n\nName - {user_info}\nId - `{user_id}`\n\nDomain name - {URL}\nApi - `{API}`\nGroup link - {grp_link}   `{grp_id}`"
+        await c.send_message(LOG_CHANNEL, log_message, disable_web_page_preview=True)
+    except Exception as e:
+        await save_group_settings(grp_id, 'streamsite', STREAM_SITE)
+        await save_group_settings(grp_id, 'streamapi', STREAM_API)
+        await sts.edit(f"<b><u>❌ ᴇʀʀᴏʀ ᴏᴄᴄᴏᴜʀᴇᴅ ❌</u>\n\nᴀᴜᴛᴏ ᴀᴅᴅᴇᴅ ᴅᴇꜰᴜʟᴛ sʜᴏʀᴛɴᴇʀ\n\nɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴄʜᴀɴɢᴇ ᴛʜᴇɴ ᴜsᴇ ᴄᴏʀʀᴇᴄᴛ ꜰᴏʀᴍᴀᴛ ᴏʀ ᴀᴅᴅ ᴠᴀʟɪᴅ sʜᴏʀᴛʟɪɴᴋ ᴅᴏᴍᴀɪɴ ɴᴀᴍᴇ & ᴀᴘɪ\n\nʏᴏᴜ ᴄᴀɴ ᴀʟsᴏ ᴄᴏɴᴛᴀᴄᴛ ᴏᴜʀ <a href=https://t.me/safarisuport>sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ</a> ꜰᴏʀ sᴏʟᴠᴇ ᴛʜɪs ɪssᴜᴇ...\n\nʟɪᴋᴇ -\n\n`/set_stream sharedisklinks.com 587f94f0e0b1813a52aed61290af6ea79d6ee464`\n\n💔 ᴇʀʀᴏʀ - <code>{e}</code></b>")
+           
 @Client.on_message(filters.command('set_caption'))
 async def save_caption(client, message):
     grp_id = message.chat.id

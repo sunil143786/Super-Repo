@@ -4,6 +4,7 @@ import logging
 import random
 import asyncio
 import pytz
+from telegram import InputMediaPhoto
 import requests
 import string
 from Script import script

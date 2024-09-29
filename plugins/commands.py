@@ -16,7 +16,7 @@ from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, ge
 from database.users_chats_db import db
 from database.safari_reffer import sdb
 from info import *
-from utils import get_settings, get_size, is_subscribed, is_req_subscribed, reacts, save_group_settings, temp, get_shortlink, get_seconds
+from utils import get_settings, get_size, is_subscribed, is_req_subscribed, save_group_settings, temp, get_shortlink, get_seconds
 from database.connections_mdb import active_connection
 from utils import react_msg
 import re
@@ -30,6 +30,7 @@ BATCH_FILES = {}
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
     try: 
+        await message.react(emoji=random.choice(REACTION), big=True)
         user_id = message.from_user.id
         send_count = await db.files_count(message.from_user.id, "send_all") or 0
         files_counts = await db.files_count(message.from_user.id, "files_count") or 0

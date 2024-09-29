@@ -108,7 +108,7 @@ MAX_LIST_ELM = environ.get("MAX_LIST_ELM", None)
 INDEX_REQ_CHANNEL = int(environ.get('INDEX_REQ_CHANNEL', LOG_CHANNEL))
 MELCOW_NEW_USERS = is_enabled((environ.get('MELCOW_NEW_USERS', "True")), True)
 
-EMOJIS = [
+REACTION = [
         "👍", "❤️", "🔥", "👀",
         "🥰", "👏", "😎","🚀",
         "😱","😍","💥","✨",

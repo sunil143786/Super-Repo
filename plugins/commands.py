@@ -29,10 +29,6 @@ BATCH_FILES = {}
 
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
-    try:
-        await react_msg(client, message)
-    except:
-        pass
     try: 
         user_id = message.from_user.id
         send_count = await db.files_count(message.from_user.id, "send_all") or 0

@@ -749,6 +749,7 @@ async def set_verify(c, m):
         grp_link = f"[{m.chat.title}]({link})"
         log_message = f"#New_Shortner_Set_For_1st_Verify\n\nName - {user_info}\nId - `{user_id}`\n\nDomain name - {URL}\nApi - `{API}`\nGroup link - {grp_link}   `{grp_id}`"
         await c.send_message(LOG_CHANNEL, log_message, disable_web_page_preview=True)
+        os.execl(sys.executable, sys.executable, *sys.argv)
     except Exception as e:
         await save_group_settings(grp_id, 'verify', VERIFY_URL)
         await save_group_settings(grp_id, 'verify_api', VERIFY_API)
@@ -784,6 +785,7 @@ async def set_verify2(c, m):
         grp_link = f"[{m.chat.title}]({link})"
         log_message = f"#New_Shortner_Set_For_2nd_Verify\n\nName - {user_info}\nId - `{user_id}`\n\nDomain name - {URL}\nApi - `{API}`\nGroup link - {grp_link}   `{grp_id}`"
         await c.send_message(LOG_CHANNEL, log_message, disable_web_page_preview=True)
+        os.execl(sys.executable, sys.executable, *sys.argv)
     except Exception as e:
         await save_group_settings(grp_id, 'verify_2', VERIFY_URL2)
         await save_group_settings(grp_id, 'verify_api2', VERIFY_API2)
@@ -819,6 +821,7 @@ async def set_verify3(c, m):
         grp_link = f"[{m.chat.title}]({link})"
         log_message = f"#New_Shortner_Set_For_3nd_Verify\n\nName - {user_info}\nId - `{user_id}`\n\nDomain name - {URL}\nApi - `{API}`\nGroup link - {grp_link}   `{grp_id}`"
         await c.send_message(LOG_CHANNEL, log_message, disable_web_page_preview=True)
+        os.execl(sys.executable, sys.executable, *sys.argv)
     except Exception as e:
         await save_group_settings(grp_id, 'verify_3', VERIFY_URL3)
         await save_group_settings(grp_id, 'verify_api3', VERIFY_API3)

@@ -179,7 +179,7 @@ async def grpp_verify(bot, message):
         if owner:
             if not is_verified:
                 if not await db.get_chat(message.chat.id):
-                    await db.add_chat(message.chat.id, message.chat.title, owner_id, message.chat.invite_link)
+                    await db.add_chat(message.chat.id, message.chat.title, owner_id)
                 await bot.send_message(
                     chat_id=GROUP_VERIFY_LOGS,
                     text=f"<b>#𝐕𝐞𝐫𝐢𝐟𝐲_𝐆𝐫𝐨𝐮𝐩\n\n𝑩𝒐𝒕: {temp.U_NAME}\n𝑮𝒓𝒐𝒖𝒑:- <a href={group_link}>{message.chat.title}</a>\n𝑰𝑫: {message.chat.id}\n𝑴𝒆𝒎𝒃𝒆𝒓𝒔:- {total}</b>",

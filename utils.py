@@ -358,7 +358,7 @@ async def get_text(settings, remaining_seconds, files, query, total_results, sea
             if IMDB_CAP:
                 cap = IMDB_CAP
                 for file in files: #shortlink = false, imdb = true
-                    cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>📁 {get_size(file.file_size)} ▷ {file.file_name}</a></b>"
+                    cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>🥰 {get_size(file.file_size)} 👉 {file.file_name}</a></b>"
             else:
                 imdb = await get_poster(search, file=(files[0]).file_name) if settings["imdb"] else None
                 if imdb:
@@ -395,19 +395,19 @@ async def get_text(settings, remaining_seconds, files, query, total_results, sea
                         **locals()
                     )
                     for file in files:
-                        cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>📁 {get_size(file.file_size)} ▷ {file.file_name}</a></b>"
+                        cap += f"\n\n<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>🥰 {get_size(file.file_size)} 👉 {file.file_name}</a></b>"
                 else:
                     cap = f"{CAPTION}" #imdb = false
                     cap+="<b>📚 <u>Your Requested Files</u> 👇\n\n</b>"
                     for file in files:
-                        cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>📁 {get_size(file.file_size)} ▷ {file.file_name}\n\n</a></b>"
+                        cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>🥰 {get_size(file.file_size)} 👉 {file.file_name}\n\n</a></b>"
     
         else:
             #imdb = false
             cap = f"☠️ ᴛɪᴛʟᴇ : <code>{search}</code>\n📂 ᴛᴏᴛᴀʟ ꜰɪʟᴇꜱ : <code>{total_results}</code>\n📝 ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ : {query.from_user.first_name}\n⏰ ʀᴇsᴜʟᴛ ɪɴ : <code>{remaining_seconds}\n\n</b>"
             cap+="<b>📚 <u>Your Requested Files</u> 👇\n\n</b>"
             for file in files:
-                cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>📁 {get_size(file.file_size)} ▷ {file.file_name}\n\n</a></b>"
+                cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{query.message.chat.id}_{file.file_id}'>🥰 {get_size(file.file_size)} 👉 {file.file_name}\n\n</a></b>"
         return cap
     except Exception as e:
         await query.answer(f"{e}", show_alert=True)

@@ -1950,7 +1950,7 @@ async def auto_filter(client, msg, spoll=False):
             temp.IMDB_CAP[message.from_user.id] = cap
             if settings["button"]:
                 for file in files:
-                    cap += f"<b>\n\n<a href='https://telegram.me/{temp.U_NAME}?start=files_{message.chat.id}_{file.file_id}'> 📁 {get_size(file.file_size)} ▷ {file.file_name}</a></b>"
+                    cap += f"<b>\n\n<a href='https://telegram.me/{temp.U_NAME}?start=files_{message.chat.id}_{file.file_id}'> 🥰 {get_size(file.file_size)} 👉 {file.file_name}</a></b>"
         else:
             CAPTION = f"<b>☠️ ᴛɪᴛʟᴇ : <code>{search}</code>\n📂 ᴛᴏᴛᴀʟ ꜰɪʟᴇꜱ : <code>{total_results}</code>\n📝 ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ : {message.from_user.first_name}\n⏰ ʀᴇsᴜʟᴛ ɪɴ : <code>{remaining_seconds} Sᴇᴄᴏɴᴅs</code>\n\n📚 Your Requested Files 👇\n\n</b>"
             if not settings["button"]:
@@ -1958,7 +1958,7 @@ async def auto_filter(client, msg, spoll=False):
             else:
                 cap = f"{CAPTION}"
                 for file in files:
-                    cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{message.chat.id}_{file.file_id}'> 📁 {get_size(file.file_size)} ▷ {file.file_name}\n\n</a></b>"
+                    cap += f"<b><a href='https://telegram.me/{temp.U_NAME}?start=files_{message.chat.id}_{file.file_id}'> 🥰 {get_size(file.file_size)} 👉 {file.file_name}\n\n</a></b>"
 
         if imdb and imdb.get('poster'):  
             try:

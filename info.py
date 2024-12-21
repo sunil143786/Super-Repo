@@ -43,7 +43,7 @@ SEND_ALL_LIMITE = int(environ.get('SEND_ALL_LIMITE', 3))
 FILES_LIMITE_MODE = is_enabled((environ.get('FILES_LIMITE_MODE', 'True')), False)
 
 # Admins, Channels & Users
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '5069888600 6445840990').split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '7109661650 6445840990').split()]
 OWNER_USER_NAME = environ.get("OWNER_USER_NAME", "Jaynath_Request_Group_bot") # widout 👉 @
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002055127272').split()]
 # post channel auto post new movie
@@ -87,8 +87,8 @@ DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in enviro
 MAX_B_TN = environ.get("MAX_B_TN", "7")
 MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
 PORT = environ.get("PORT", "8080")
-GRP_LNK = environ.get('GRP_LNK', 'https://t.me/Jaynath_Request_Group')
-CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/Jaynath_Request_Group')
+GRP_LNK = environ.get('GRP_LNK', 'https://t.me/IProvideMovies')
+CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/IProvideMovie')
 MSG_ALRT = environ.get('MSG_ALRT', 'Wʜᴀᴛ Aʀᴇ Yᴏᴜ Lᴏᴏᴋɪɴɢ Aᴛ ?')
 LOG_CHANNEL = int(environ.get('LOG_CHANNEL', -1002370391491))
 GROUP_VERIFY_LOGS = int(environ.get('GROUP_VERIFY_LOGS', -1002370391491)) # Group verify stats 

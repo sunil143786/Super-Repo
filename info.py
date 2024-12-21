@@ -35,7 +35,7 @@ QR_CODE = environ.get('CODE', 'https://graph.org/file/8bc2cc53e47180bc78c10.jpg'
 REFERAL_TIME = int(environ.get('REFERAL_USER_TIME', "2592000")) # set in seconds | already seted 1 month premium
 REFFER_POINT = int(environ.get('USER_POINT', "50")) # Set Referel point Count 
 #premium Users Satuts
-premium = environ.get('PREMIUM_LOGS', '-1002073485610')
+premium = environ.get('PREMIUM_LOGS', '-1002370391491')
 PREMIUM_LOGS = int(premium) if premium and id_pattern.search(premium) else None
 # lock file, set file limit 
 FILE_LIMITE = int(environ.get('FILE_LIMITE', 15))
@@ -90,9 +90,9 @@ PORT = environ.get("PORT", "8080")
 GRP_LNK = environ.get('GRP_LNK', 'https://t.me/Jaynath_Request_Group')
 CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/Jaynath_Request_Group')
 MSG_ALRT = environ.get('MSG_ALRT', 'Wʜᴀᴛ Aʀᴇ Yᴏᴜ Lᴏᴏᴋɪɴɢ Aᴛ ?')
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', -1002073485610))
-GROUP_VERIFY_LOGS = int(environ.get('GROUP_VERIFY_LOGS', -1002073485610)) # Group verify stats 
-REQ_CHANNEL = int(environ.get('REQ_CHANNEL', -1002073485610)) # movies request channel, else log channel
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', -1002370391491))
+GROUP_VERIFY_LOGS = int(environ.get('GROUP_VERIFY_LOGS', -1002370391491)) # Group verify stats 
+REQ_CHANNEL = int(environ.get('REQ_CHANNEL', -1002370391491)) # movies request channel, else log channel
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'Jaynath_Request_Group')
 IMDB = is_enabled((environ.get('IMDB', "True")), True)
 AUTO_FFILTER = is_enabled((environ.get('AUTO_FFILTER', "True")), True)

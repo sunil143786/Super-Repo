@@ -43,12 +43,12 @@ SEND_ALL_LIMITE = int(environ.get('SEND_ALL_LIMITE', 3))
 FILES_LIMITE_MODE = is_enabled((environ.get('FILES_LIMITE_MODE', 'True')), False)
 
 # Admins, Channels & Users
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '7109661650 6445840990').split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '5698548500 6445840990').split()]
 OWNER_USER_NAME = environ.get("OWNER_USER_NAME", "Jaynath_Request_Group_bot") # widout 👉 @
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002043695166').split()]
 # post channel auto post new movie
 POST_CHANNELS = list(map(int, (channel.strip() for channel in environ.get('POST_CHANNELS', '-1002324359678').split(','))))
-AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-1002324359678'))
+AUTH_CHANNEL = int(environ.get('AUTH_CHANNEL', '-1002511755868'))
 AUTH_REQ_CHANNEL = int(environ.get('AUTH_REQ_CHANNEL', '0'))
 NO_RESULTS_MSG = is_enabled((environ.get("NO_RESULTS_MSG", 'True')), False)
 
@@ -87,12 +87,12 @@ DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in enviro
 MAX_B_TN = environ.get("MAX_B_TN", "7")
 MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
 PORT = environ.get("PORT", "8080")
-GRP_LNK = environ.get('GRP_LNK', 'https://t.me/IProvideMovies')
-CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/IProvideMovie')
+GRP_LNK = environ.get('GRP_LNK', 'https://t.me/hdmovieshub34')
+CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/hdmovieshub34')
 MSG_ALRT = environ.get('MSG_ALRT', 'Wʜᴀᴛ Aʀᴇ Yᴏᴜ Lᴏᴏᴋɪɴɢ Aᴛ ?')
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', -1002370391491))
-GROUP_VERIFY_LOGS = int(environ.get('GROUP_VERIFY_LOGS', -1002370391491)) # Group verify stats 
-REQ_CHANNEL = int(environ.get('REQ_CHANNEL', -1002370391491)) # movies request channel, else log channel
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', -1002578463218))
+GROUP_VERIFY_LOGS = int(environ.get('GROUP_VERIFY_LOGS', -1002578463218)) # Group verify stats 
+REQ_CHANNEL = int(environ.get('REQ_CHANNEL', -1002578463218)) # movies request channel, else log channel
 SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'Jaynath_Request_Group')
 IMDB = is_enabled((environ.get('IMDB', "True")), True)
 AUTO_FFILTER = is_enabled((environ.get('AUTO_FFILTER', "True")), True)
@@ -120,7 +120,7 @@ REACTION = ["🔥", "❤️", "😍", "⚡",
 "🤷‍♂", "🤷", "🤷‍♀", "😡"]
 
 # Streaming
-BIN_CHANNEL = environ.get("BIN_CHANNEL", "-1002073485610")
+BIN_CHANNEL = environ.get("BIN_CHANNEL", "-1002578463218")
 if len(BIN_CHANNEL) == 0:
     logging.error('BIN_CHANNEL is missing, exiting now')
     exit()

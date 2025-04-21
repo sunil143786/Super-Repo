@@ -78,9 +78,9 @@ THIRD_VERIFY_GAP = int(environ.get('THIRD_VERIFY_GAP', "600"))
 VERIFY_URL3 = environ.get('VERIFY_URL3', 'onepageyam.com')
 VERIFY_API3 = (environ.get('VERIFY_API3', '0ee3047f0a82b5df9bc891ef68f2c5f5ccfda8cf'))
  
-TUTORIAL = environ.get('TUTORIAL', 'https://t.me/safaridev')
-TUTORIAL2 = environ.get('TUTORIAL2', 'https://t.me/safaridev')
-TUTORIAL3 = environ.get('TUTORIAL3', 'https://t.me/safaridev')
+TUTORIAL = environ.get('TUTORIAL', 'https://t.me/Jaynath_Backup_Channel/109')
+TUTORIAL2 = environ.get('TUTORIAL2', 'https://t.me/Jaynath_Backup_Channel/109')
+TUTORIAL3 = environ.get('TUTORIAL3', 'https://t.me/Jaynath_Backup_Channel/109')
 
 
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '-1002249135760').split()]

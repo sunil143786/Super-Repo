@@ -30,7 +30,7 @@ WELCOME_VID = environ.get("WELCOME_VID", "https://telegra.ph/file/451f038b4e7c2d
 #premium imag
 REFFER_PIC = environ.get('REFFER_PIC', 'https://graph.org/file/f75feb19aece0d4badefd.jpg')
 PREMIUM_PIC = environ.get('SUBSCRIPTION', 'https://i.imghippo.com/files/wPdPK1726559453.jpg')
-QR_CODE = environ.get('CODE', 'https://graph.org/file/8bc2cc53e47180bc78c10.jpg') # Scanner Code image 
+QR_CODE = environ.get('CODE', 'https://envs.sh/YVP.jpg) # Scanner Code image 
 #refer time, or feffer count
 REFERAL_TIME = int(environ.get('REFERAL_USER_TIME', "2592000")) # set in seconds | already seted 1 month premium
 REFFER_POINT = int(environ.get('USER_POINT', "50")) # Set Referel point Count 
@@ -58,8 +58,8 @@ DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Jaynath')
 
 #stream link shortner
-STREAM_SITE = (environ.get('STREAM_SITE', 'sharedisklinks.com'))
-STREAM_API = (environ.get('STREAM_API', '587f94f0e0b1813a52aed61290af6ea79d6ee464'))
+STREAM_SITE = (environ.get('STREAM_SITE', 'onepageyam.com'))
+STREAM_API = (environ.get('STREAM_API', '0ee3047f0a82b5df9bc891ef68f2c5f5ccfda8cf'))
 STREAM_HTO = (environ.get('STREAMHTO', 'https://t.me/Hoe/69'))
 STREAM_MODE = is_enabled((environ.get('STREAM_MODE', "False")), False)
 
@@ -67,16 +67,16 @@ STREAM_MODE = is_enabled((environ.get('STREAM_MODE', "False")), False)
 #verify site api and url
 IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
 VERIFY_IMG = environ.get("VERIFY_IMG", "https://graph.org/file/1669ab9af68eaa62c3ca4.jpg")
-VERIFY_URL = environ.get('VERIFY_URL', 'sharedisklinks.com')
-VERIFY_API = (environ.get('VERIFY_API', '587f94f0e0b1813a52aed61290af6ea79d6ee464'))
+VERIFY_URL = environ.get('VERIFY_URL', 'onepageyam.com')
+VERIFY_API = (environ.get('VERIFY_API', '0ee3047f0a82b5df9bc891ef68f2c5f5ccfda8cf'))
 
 TWO_VERIFY_GAP = int(environ.get('TWO_VERIFY_GAP', "600"))
-VERIFY_URL2 = environ.get('VERIFY_URL2', 'sharedisklinks.com')
-VERIFY_API2 = (environ.get('VERIFY_API2', '587f94f0e0b1813a52aed61290af6ea79d6ee464'))
+VERIFY_URL2 = environ.get('VERIFY_URL2', 'onepageyam.com')
+VERIFY_API2 = (environ.get('VERIFY_API2', '0ee3047f0a82b5df9bc891ef68f2c5f5ccfda8cf'))
  
 THIRD_VERIFY_GAP = int(environ.get('THIRD_VERIFY_GAP', "600"))
-VERIFY_URL3 = environ.get('VERIFY_URL3', 'sharedisklinks.com')
-VERIFY_API3 = (environ.get('VERIFY_API3', '587f94f0e0b1813a52aed61290af6ea79d6ee464'))
+VERIFY_URL3 = environ.get('VERIFY_URL3', 'onepageyam.com')
+VERIFY_API3 = (environ.get('VERIFY_API3', '0ee3047f0a82b5df9bc891ef68f2c5f5ccfda8cf'))
  
 TUTORIAL = environ.get('TUTORIAL', 'https://t.me/safaridev')
 TUTORIAL2 = environ.get('TUTORIAL2', 'https://t.me/safaridev')

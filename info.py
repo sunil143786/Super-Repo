@@ -65,22 +65,22 @@ STREAM_MODE = is_enabled((environ.get('STREAM_MODE', "False")), False)
 
 
 #verify site api and url
-IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'False')), False)
+IS_VERIFY = is_enabled((environ.get('IS_VERIFY', 'True')), False)
 VERIFY_IMG = environ.get("VERIFY_IMG", "https://graph.org/file/1669ab9af68eaa62c3ca4.jpg")
-VERIFY_URL = environ.get('VERIFY_URL', 'onepageyam.com')
-VERIFY_API = (environ.get('VERIFY_API', '0ee3047f0a82b5df9bc891ef68f2c5f5ccfda8cf'))
+VERIFY_URL = environ.get('VERIFY_URL', 'arlinks.in')
+VERIFY_API = (environ.get('VERIFY_API', '6b6dade1e95cdc2abd4d0ae76ffc88555753c5d7'))
 
 TWO_VERIFY_GAP = int(environ.get('TWO_VERIFY_GAP', "600"))
-VERIFY_URL2 = environ.get('VERIFY_URL2', 'onepageyam.com')
-VERIFY_API2 = (environ.get('VERIFY_API2', '0ee3047f0a82b5df9bc891ef68f2c5f5ccfda8cf'))
+VERIFY_URL2 = environ.get('VERIFY_URL2', 'arlinks.in')
+VERIFY_API2 = (environ.get('VERIFY_API2', '6b6dade1e95cdc2abd4d0ae76ffc88555753c5d7'))
  
 THIRD_VERIFY_GAP = int(environ.get('THIRD_VERIFY_GAP', "600"))
-VERIFY_URL3 = environ.get('VERIFY_URL3', 'onepageyam.com')
-VERIFY_API3 = (environ.get('VERIFY_API3', '0ee3047f0a82b5df9bc891ef68f2c5f5ccfda8cf'))
+VERIFY_URL3 = environ.get('VERIFY_URL3', 'arlinks.in')
+VERIFY_API3 = (environ.get('VERIFY_API3', '6b6dade1e95cdc2abd4d0ae76ffc88555753c5d7'))
  
-TUTORIAL = environ.get('TUTORIAL', 'https://t.me/Jaynath_Backup_Channel/109')
-TUTORIAL2 = environ.get('TUTORIAL2', 'https://t.me/Jaynath_Backup_Channel/109')
-TUTORIAL3 = environ.get('TUTORIAL3', 'https://t.me/Jaynath_Backup_Channel/109')
+TUTORIAL = environ.get('TUTORIAL', 'https://t.me/Jaynath_Backup_Channel/112')
+TUTORIAL2 = environ.get('TUTORIAL2', 'https://t.me/Jaynath_Backup_Channel/112')
+TUTORIAL3 = environ.get('TUTORIAL3', 'https://t.me/Jaynath_Backup_Channel/112')
 
 
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '-1002249135760').split()]
